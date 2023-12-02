@@ -8,21 +8,21 @@ public class ExampleClass : MonoBehaviour
     public float sprintMax = 10f;
     private float sprint = 0;
     public float sprintCooldown = 3f;
-    private float cool;
+    private float cooldown;
     public float sprintRegain = 3;
     public RectTransform sprintBar;
     
     void Start() {
-        cool = sprintCooldown;
+        cooldown = sprintCooldown;
         sprint = sprintMax;
     }
     void Update()
     {
         if(sprint != 10){
-            cool -= Time.deltaTime;
+            cooldown -= Time.deltaTime;
         }
 
-        if(cool <= 0){
+        if(cooldown <= 0){
             sprint += Time.deltaTime*sprintRegain;
             if(sprint > sprintMax)
                 sprint = sprintMax;
@@ -34,7 +34,7 @@ public class ExampleClass : MonoBehaviour
         
         if(sprint> 0 && Input.GetKey(KeyCode.LeftShift)){
             IsSprint = sprintMultiplier;
-            cool = sprintCooldown;
+            cooldown = sprintCooldown;
             sprint -= 1*Time.deltaTime;
         }
         
