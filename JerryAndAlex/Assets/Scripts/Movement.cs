@@ -1,0 +1,45 @@
+using Unity.VisualScripting;
+using UnityEngine;
+
+public class ExampleClass : MonoBehaviour
+{   
+    public float movementSpeed = 5f;
+    public float sprintMultiplier = 2f;
+    public float sprintMax = 10f;
+    private float sprint = 0;
+    public float sprintCooldown = 3f;
+    private float cool;
+    public float sprintRegain = 3;
+    public RectTransform sprintBar;
+    
+    void Start() {
+        cool = sprintCooldown;
+        sprint = sprintMax;
+    }
+    void Update()
+    {
+        if(sprint != 10){
+            cool -= Time.deltaTime;
+        }
+
+        if(cool <= 0){
+            sprint += Time.deltaTime*sprintRegain;
+            if(sprint > sprintMax)
+                sprint = sprintMax;
+        }
+
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+        float IsSprint = 1;
+        
+        if(sprint> 0 && Input.GetKey(KeyCode.LeftShift)){
+            IsSprint = sprintMultiplier;
+            cool = sprintCooldown;
+            sprint -= 1*Time.deltaTime;
+        }
+        
+        transform.position += new Vector3(horizontalInput * movementSpeed * Time.deltaTime * IsSprint, verticalInput * movementSpeed * Time.deltaTime * IsSprint, 0);
+
+        sprintBar.sizeDelta= new Vector2(sprint/sprintMax,sprintBar.sizeDelta.y);
+    }
+}
