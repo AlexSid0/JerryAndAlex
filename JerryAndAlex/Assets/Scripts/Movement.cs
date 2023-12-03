@@ -34,7 +34,7 @@ public class ExampleClass : MonoBehaviour
         float verticalInput = Input.GetAxis("Vertical");
         float IsSprint = 1;
         
-        if(sprint> 0 && Input.GetKey(KeyCode.LeftShift) && (horizontalInput != 0 || verticalInput !=0)){
+        if(sprint> 0 && Input.GetKey(KeyCode.LeftShift)){
             IsSprint = sprintMultiplier;
             cooldown = sprintCooldown;
             sprint -= 1*Time.deltaTime;
