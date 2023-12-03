@@ -10,9 +10,11 @@ public class ExampleClass : MonoBehaviour
     public float sprintCooldown = 3f;
     private float cooldown;
     public float sprintRegain = 3;
-    public RectTransform sprintBar;
+    private float barSize;
+    public Transform sprintBar;
     
     void Start() {
+        barSize = sprintBar.localScale.x;
         cooldown = sprintCooldown;
         sprint = sprintMax;
     }
@@ -40,6 +42,6 @@ public class ExampleClass : MonoBehaviour
         
         transform.position += new Vector3(horizontalInput * movementSpeed * Time.deltaTime * IsSprint, verticalInput * movementSpeed * Time.deltaTime * IsSprint, 0);
 
-        sprintBar.sizeDelta= new Vector2(sprint/sprintMax,sprintBar.sizeDelta.y);
+        sprintBar.localScale= new Vector2(sprint/sprintMax*barSize,sprintBar.localScale.y);
     }
 }
